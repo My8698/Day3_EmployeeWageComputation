@@ -2,14 +2,21 @@ package com.bridgelabz;
 public class EmployeeWage {
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
-    public static int computeEmpWage(String companyName,int EMP_RATE_PER_HOUR,int NUM_OF_WORKING_DAYS,int MAX_HRS_IN_MONTH ) {
+    private final String companyName;
+    private final int EMP_RATE_PER_HOUR;
+    private final int NUM_OF_WORKING_DAYS;
+    private final int MAX_HRS_IN_MONTH;
+    private int totalEmpWage;
+    EmployeeWage(String companyName,int EMP_RATE_PER_HOUR,int NUM_OF_WORKING_DAYS,int MAX_HRS_IN_MONTH ) {
+        this.companyName = companyName;
+        this.EMP_RATE_PER_HOUR = EMP_RATE_PER_HOUR;
+        this.NUM_OF_WORKING_DAYS = NUM_OF_WORKING_DAYS;
+        this.MAX_HRS_IN_MONTH = MAX_HRS_IN_MONTH;
+    }
+    public void computeEmpWage(){
         int empHrs = 0;
         int totalEmpHrs = 0;
         int totalWorkingDays = 0;
-        System.out.println("Company Name:"+companyName);
-        System.out.println("Rate Per Hour:"+EMP_RATE_PER_HOUR);
-        System.out.println("Number of working days:"+NUM_OF_WORKING_DAYS);
-        System.out.println("Maximum working hours in month:"+MAX_HRS_IN_MONTH);
         while (totalEmpHrs <= MAX_HRS_IN_MONTH &&
                 totalWorkingDays < NUM_OF_WORKING_DAYS) {
                   totalWorkingDays++;
@@ -25,18 +32,22 @@ public class EmployeeWage {
                     empHrs = 0;
             }
             totalEmpHrs += empHrs;
-            System.out.println("Days#: " + totalWorkingDays + "Emp Hrs:" + empHrs);
+            System.out.println("Day#: " + totalWorkingDays + "Emp Hrs:" + empHrs);
         }
-        int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
-        System.out.println("Total Emp Wage: " + totalEmpWage);
-        return totalEmpWage;
+        totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
+    }
+    public String toString(){
+        return "Total Emp Wage for company is " +companyName+ " : " +totalEmpWage;
     }
     public static void main(String[] args)
     {
-        computeEmpWage("Amazon",30,20,200);
-        computeEmpWage("Flipkart",20,10,100);
-        computeEmpWage("Myntra",10,5,50);
-    }
+        EmployeeWage amazon=new EmployeeWage("Amazon",20,3,10);
+        EmployeeWage flipkart=new EmployeeWage("Flipkart",10,3,20);
+        amazon.computeEmpWage();
+        System.out.println(amazon);
+        flipkart.computeEmpWage();
+        System.out.println(flipkart);
+       }
 }
 
 
